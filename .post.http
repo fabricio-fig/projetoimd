@@ -1,12 +1,12 @@
-GET http://localhost:8080/posts
+GET http://localhost:8080/api/posts
 //get all
 
 ###
-GET  http://localhost:8080/posts/1
+GET  http://localhost:8080/api/posts/1
 //get by id
 
 ###
-POST http://localhost:8080/posts 
+POST http://localhost:8080/api/posts 
 Content-Type: application/json
 
 {
