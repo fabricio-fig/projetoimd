@@ -11,8 +11,8 @@ POST  http://localhost:8080/api/usuarios
 Content-Type: application/json
 
 {
-    "email": "mariarita@gmail.com",
-    "senha": "456" 
+    "email": "newton@gmail.com",
+    "senha": "senha" 
 }
 
 ###
@@ -25,4 +25,13 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/usuarios?id=3
+DELETE http://localhost:8080/api/usuarios?id=1
+
+###
+POST http://localhost:8080/api/usuarios/login
+Content-Type: application/json
+
+{
+    "email": "newton@gmail.com",
+    "senha": "senha"
+}

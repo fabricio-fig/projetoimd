@@ -4,6 +4,8 @@ const postMid = require('../middleware/validarPost')
 const { Post, Usuario } = require('../db/models')
 const multer  = require('multer')
 const path = require('path')
+const ErroHandler = require('../utils/ErrorHandler')
+const autenticar = require('../middleware/autenticacao.mid')
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -24,9 +26,9 @@ const fileFilter = (req, file, cb) => {
 }
 var upload = multer({ storage: storage, fileFilter: fileFilter })
 
-router.post('/', upload.single('foto'))
-router.post('/', postMid)
-router.put('/', postMid)
+router.post('/', autenticar, upload.single('foto'))
+router.post('/', autenticar, postMid)
+router.put('/', autenticar, postMid)
 
 router.get('/', async (req, res) => {
     const posts = await Post.findAll()
@@ -52,13 +54,17 @@ router.post('/:id/upload', upload.single('foto'), async (req, res) => {
         res.status(400).json({msg: "Post não encontrado!"})
     }
 })
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
     const data = req.body
     if(req.file){
         data.foto = `/static/uploads/${req.file.filename}`
     }
-    const post = await Post.create(data)
-    res.json({msg: "Post adicionado com sucesso!"})
+    try{
+        const post = await Post.create(data)
+        res.json({msg: "Post adicionado com sucesso!"})
+    }catch(err){
+        next(new ErroHandler(500, 'Falha interna ao adicionar postagem'))  
+    }
 })
 
 router.delete('/', async (req, res) => {
