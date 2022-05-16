@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon --exec node src/index.js",
+    "start": "cross-env NODE_ENV=development nodemon -e yaml,js,json --exec node src/index.js",
     "production": "cross-env NODE_ENV=production node src/index.js",
     "migrate-dev": "cross-env NODE_ENV=development npx sequelize-cli db:migrate",
     "migrate-prod": "cross-env NODE_ENV=production npx sequelize-cli db:migrate"
@@ -29,6 +29,8 @@
     "mysql2": "^2.3.3",
     "sequelize": "^6.19.0",
     "sqlite3": "^5.0.5",
-    "winston": "^3.7.2"
+    "swagger-ui-express": "^4.4.0",
+    "winston": "^3.7.2",
+    "yamljs": "^0.3.0"
   }
 }

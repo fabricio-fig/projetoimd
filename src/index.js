@@ -5,10 +5,15 @@ const indexRoute = require('./rotas/index.rotas')
 var expressLayouts = require('express-ejs-layouts')
 const logger = require('./utils/logger')
 const logMiddleware = require('./middleware/log.mid')
-require('dotenv').config()
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./api.yaml');
 
+
+    require('dotenv').config()
     const app = express()
 
+    app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
     app.use(express.json())
     app.set('view engine', 'ejs')

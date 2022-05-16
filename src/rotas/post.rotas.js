@@ -100,8 +100,6 @@ function prepararResultado(post){
         if(result.Usuario.createdAt) delete result.Usuario.createdAt;
         if(result.Usuario.updatedAt) delete result.Usuario.updatedAt;
     }
-    
-
     return result;
 }
 module.exports = router

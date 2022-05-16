@@ -3,7 +3,7 @@ GET http://localhost:8080/api/usuarios
 
 ###
 
-GET http://localhost:8080/api/usuarios/1
+GET http://localhost:8080/api/usuarios/2
 // get by id
 
 ###
@@ -11,7 +11,7 @@ POST  http://localhost:8080/api/usuarios
 Content-Type: application/json
 
 {
-    "email": "newton@gmail.com",
+    "email": "turing@gmail.com",
     "senha": "senha" 
 }
 
@@ -20,18 +20,18 @@ PUT http://localhost:8080/api/usuarios?id=1
 Content-Type: application/json
 
 {
-    "email": "newton@gmail.com",
-    "senha": "1234"
+    "email": "turing@gmail.com",
+    "senha": "senha"
 }
 
 ###
-DELETE http://localhost:8080/api/usuarios?id=1
+DELETE http://localhost:8080/api/usuarios?id=4
 
 ###
 POST http://localhost:8080/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "newton@gmail.com",
+    "email": "turing@gmail.com",
     "senha": "senha"
 }

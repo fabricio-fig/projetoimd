@@ -9,12 +9,17 @@ const jwt = require('jsonwebtoken')
 
 router.get('/', async (req, res) => {
     const usuarios = await Usuario.findAll();
-    res.json({ usuarios: usuarios })
+    const resultado = usuarios.map(user => prepararResultado(user.dataValues));
+    res.json({ usuarios: resultado })
 })
 
 router.get('/:id', async (req, res) => {
     const usuario = await Usuario.findByPk(req.params.id);
-    res.json({ usuarios: usuario })
+    if(usuario){
+        res.json({usuario : prepararResultado(usuario.dataValues)})
+    }else{
+        res.status(400).json({msg: 'Usuário não encontrado'})
+    }
 })
 
 router.post('/', async (req, res) => {
@@ -71,10 +76,20 @@ router.post('/login', async (req, res) => {
             iss: 'imd-backend', aud: 'imd-frontend', email: usuarioBusca.email
         }
 
-        const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
+        const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10m'})
         res.json({ accessToken: token })
     } else {
         res.status(403).json({ msg: 'Usuário ou senha inválidos.' })
     }
 })
+
+function prepararResultado(usuario){
+    const result = Object.assign({}, usuario);
+    if(result.createdAt) delete result.createdAt;
+    if(result.updatedAt) delete result.updatedAt;
+    if(result.senha) delete result.senha;
+
+    return result;
+}
+
 module.exports = router
